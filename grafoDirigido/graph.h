@@ -37,20 +37,19 @@ void graph<T>::insArista(T dato1, T dato2)
 template <class T>
 void graph<T>::mostrarPadres()
 {
-	for (int pos = 0; pos < TAM; pos += 1)
+	for (int i = 0; i < TAM; i ++)
 	{
-		if (array[pos].getLista()->buscarIesimaPosicion(0) != NULL)
-			cout << array[pos].getPadre() << " ";
+		if (array[i].getLista()->buscarIesimaPosicion(0) != NULL)
+			cout << array[i].getPadre() << " ";
 	}
 }
 template <class T>
 void graph<T>::mostrargraph()
 {
-	for (int pos = 0; pos < TAM; pos += 1)
+	for (int i = 0; i < TAM; i++)
 	{
-		if (array[pos].getLista()->buscarIesimaPosicion(0) != NULL)
-			cout << array[pos].getPadre() << " ==> ";
-			array[pos].getLista()->mostrar();
+		array[i].getLista()->mostrar();
+		cout << array[i].getPadre() << " ";
 	}
 }
 template <class T>
