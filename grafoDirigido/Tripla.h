@@ -7,15 +7,15 @@ template<class T>
 class Tripla
 {
 private:
-	T* dato;
+	T dato;
 	Tripla* siguiente;
 	Tripla* anterior;
 public:
-	Tripla(T* d);
+	Tripla(T d);
 	Tripla();
 	~Tripla();
-	T* getDato();
-	void setDato(T* dato);
+	T getDato();
+	void setDato(T dato);
 	Tripla<T>* getSiguiente();
 	void crearSiguiente(Tripla<T>* dato);
 	Tripla<T>* getAnterior();
@@ -24,7 +24,7 @@ public:
 };
 
 template<class T>
-Tripla<T>::Tripla(T* d)
+Tripla<T>::Tripla(T d)
 {
 	dato = d;
 	siguiente = NULL;
@@ -34,7 +34,7 @@ Tripla<T>::Tripla(T* d)
 template<class T>
 Tripla<T>::Tripla()
 {
-	dato = NULL;
+	//dato = NULL;
 	siguiente = NULL;
 	anterior = NULL;
 }
@@ -46,13 +46,13 @@ Tripla<T>::~Tripla()
 }
 
 template<class T>
-T* Tripla<T>::getDato()
+T Tripla<T>::getDato()
 {
 	return dato;
 }
 
 template<class T>
-void Tripla<T>::setDato(T* dato)
+void Tripla<T>::setDato(T dato)
 {
 	this->dato = dato;
 }

@@ -10,21 +10,21 @@ private:
 public:
 	Lista8();
 	~Lista8();
-	void addFront(T* dato);
-	void addBack(T* dato);
+	void addFront(T dato);
+	void addBack(T dato);
 	void mostrar();
 	void deleteFront();
 	void deleteBack();
-	T* busquedaSecuencialNoRecursiva(T* dato);
-	T* busquedaSecuencialRecursiva(T* dato);
-	T* buscarRecursivamente(T* dato, Tripla<T>* aux);
-	T* menorLista(bool(*funcComp)(T*, T*));;
-	T* buscarIesimaPosicion(int pos);
+	T busquedaSecuencialNoRecursiva(T dato);
+	T busquedaSecuencialRecursiva(T dato);
+	T buscarRecursivamente(T* dato, Tripla<T>* aux);
+	T menorLista(bool(*funcComp)(T, T));;
+	T buscarIesimaPosicion(int pos);
 
 	void mostrarLista(void (*ptrMostrar)(T*));
 	Tripla<T>* getPrimer();
 
-	void eliminar(T* dato);
+	void eliminar(T dato);
 };
 
 template<class T>
@@ -41,7 +41,7 @@ Lista8<T>::~Lista8()
 }
 
 template<class T>
-void Lista8<T>::addBack(T* dato)
+void Lista8<T>::addBack(T dato)
 {
 
 	if (primer == NULL && ultimo == NULL)
@@ -60,7 +60,7 @@ void Lista8<T>::addBack(T* dato)
 
 
 template<class T>
-void Lista8<T>::addFront(T* dato)
+void Lista8<T>::addFront(T dato)
 {
 	if (primer == NULL)
 	{
@@ -138,10 +138,10 @@ void Lista8<T>::deleteFront()
 }
 
 template<class T>
-T* Lista8<T>::busquedaSecuencialNoRecursiva(T* dato)
+T Lista8<T>::busquedaSecuencialNoRecursiva(T dato)
 {
 	Tripla<T>* aux = primer;
-	T* datoEncontrado = NULL;
+	T datoEncontrado;
 	while (aux != NULL)
 	{
 		if (*aux->getDato() == dato)
@@ -155,14 +155,14 @@ T* Lista8<T>::busquedaSecuencialNoRecursiva(T* dato)
 
 
 template<class T>
-T* Lista8<T>::busquedaSecuencialRecursiva(T* dato)
+T Lista8<T>::busquedaSecuencialRecursiva(T dato)
 {
 	Tripla<T>* aux = primer;
 	return buscarRecursivamente(dato, aux);
 }
 
 template<class T>
-T* Lista8<T>::buscarRecursivamente(T* dato, Tripla<T>* aux)
+T Lista8<T>::buscarRecursivamente(T* dato, Tripla<T>* aux)
 {
 	if (aux == NULL)
 	{
@@ -182,9 +182,9 @@ T* Lista8<T>::buscarRecursivamente(T* dato, Tripla<T>* aux)
 }
 
 template<class T>
-T* Lista8<T>::menorLista(bool (*funcComp)(T*, T*))
+T Lista8<T>::menorLista(bool (*funcComp)(T, T))
 {
-	T* menor = primer->getDato();
+	T menor = primer->getDato();
 	Tripla<T>* aux = primer->getSiguiente();
 	while (aux == NULL)
 	{
@@ -199,10 +199,10 @@ T* Lista8<T>::menorLista(bool (*funcComp)(T*, T*))
 
 
 template<class T>
-T* Lista8<T>::buscarIesimaPosicion(int pos)
+T Lista8<T>::buscarIesimaPosicion(int pos)
 {
 	Tripla<T>* aux = primer;
-	T* datoEncontrado = NULL;
+	T datoEncontrado;
 	int cont = 0;
 	while (aux != NULL)
 	{
@@ -219,7 +219,7 @@ T* Lista8<T>::buscarIesimaPosicion(int pos)
 template<class T>
 void intercambiar(Tripla<T>* a, Tripla<T>* b)
 {
-	T* aux = a->getDato();
+	T aux = a->getDato();
 	a->setDato(b->getDato());
 	b->setDato(aux);
 }
@@ -232,7 +232,7 @@ Tripla<T>* Lista8<T>::getPrimer()
 }
 
 template<class T>
-void Lista8<T>::eliminar(T* dato)
+void Lista8<T>::eliminar(T dato)
 {
 	Tripla<T>* i = primer;
 	Tripla<T>* j = ultimo;
@@ -241,7 +241,7 @@ void Lista8<T>::eliminar(T* dato)
 		
 		i = i->getSiguiente();
 	}
-	intercambiar((i), (j));
+	intercambiar((i),(j));
 	deleteFront();
 }
 

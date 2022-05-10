@@ -1,12 +1,12 @@
 #pragma once
 #include "Node.h"
 #include <fstream>
-#define TAM 100
+#define TAM 1000
 template <class T>
 class graph
 {
 private:
-	Nodo<T> array[TAM];
+	Node<T> array[TAM];
 	Lista8<T>* cola;
 public:
 	graph();
@@ -31,7 +31,7 @@ graph<T>::~graph()
 template <class T>
 void graph<T>::insArista(T dato1, T dato2)
 {
-	array[dato1].getLista()->insPrin(dato2);
+	array[dato1].getLista()->addFront(dato2);
 	array[dato1].setPadre(dato1);
 }
 template <class T>
@@ -85,7 +85,7 @@ bool graph<T>::BFS(T ori, T dest)
 	int i;
 	bool encontre = false;
 	array[ori].setMarca(true);
-	cola->insFinal(ori);
+	cola->addBack(ori);
 	while (cola != NULL && encontre == false)
 	{
 		i = 1;
@@ -100,7 +100,7 @@ bool graph<T>::BFS(T ori, T dest)
 				else
 				{
 					array[adya].setMarca(true);
-					cola->insFinal(adya);
+					cola->addBack(adya);
 				}
 			}
 			i += 1;
