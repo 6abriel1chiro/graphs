@@ -4,10 +4,10 @@
 template<class T>
 class Lista8
 {
-private:
+	private:
 	Tripla<T>* primer;
 	Tripla<T>* ultimo;
-public:
+	public:
 	Lista8();
 	~Lista8();
 	void addFront(T dato);
@@ -19,7 +19,7 @@ public:
 	T busquedaSecuencialRecursiva(T dato);
 	T buscarRecursivamente(T* dato, Tripla<T>* aux);
 	T menorLista(bool(*funcComp)(T, T));;
-	T buscarIesimaPosicion(int pos);
+	T findInPos(int pos);
 
 	void mostrarLista(void (*ptrMostrar)(T*));
 	Tripla<T>* getPrimer();
@@ -199,21 +199,24 @@ T Lista8<T>::menorLista(bool (*funcComp)(T, T))
 
 
 template<class T>
-T Lista8<T>::buscarIesimaPosicion(int pos)
+T Lista8<T>::findInPos(int pos)
 {
+	if (primer == NULL && ultimo == NULL)
+	{
+		return NULL;
+	}
 	Tripla<T>* aux = primer;
-	T datoEncontrado;
 	int cont = 0;
 	while (aux != NULL)
 	{
 		if (pos == cont)
 		{
-			datoEncontrado = aux->getDato();
+			return aux->getDato();
 		}
 		cont++;
 		aux = aux->getSiguiente();
 	}
-	return datoEncontrado;
+	return NULL;
 }
 
 template<class T>
@@ -244,4 +247,6 @@ void Lista8<T>::eliminar(T dato)
 	intercambiar((i),(j));
 	deleteFront();
 }
+
+
 

@@ -19,12 +19,13 @@ void testMenu()
         system("cls");
         if (opcion == 1)
         {
-        myGraph.cargarArchivo("filename.txt");
+        myGraph.cargarArchivo("testDefensa.txt");
 
      
         } 
         if (opcion == 2)
         {
+
             myGraph.insArista(2, 3);
         }
         if (opcion == 3)
@@ -33,7 +34,7 @@ void testMenu()
         }
 		if (opcion == 4)
         {
-            myGraph.mostrargraph();
+            myGraph.mostrar();
         }
         if (opcion == 5)
         {
