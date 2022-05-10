@@ -20,7 +20,6 @@ public:
 	T* buscarRecursivamente(T* dato, Tripla<T>* aux);
 	T* menorLista(bool(*funcComp)(T*, T*));;
 	T* buscarIesimaPosicion(int pos);
-	void invertirSobreSiMisma();
 
 	void mostrarLista(void (*ptrMostrar)(T*));
 	Tripla<T>* getPrimer();
@@ -38,24 +37,7 @@ Lista8<T>::Lista8()
 template<class T>
 Lista8<T>::~Lista8()
 {
-	/*
-	Tripla<T>* segundo;
-	while (primer != NULL)
-	{
-		if (primer == ultimo)
-		{
-			delete primer;
-			ultimo = NULL;
-			primer = NULL;
-		}
-		else
-		{
-			segundo = primer->getSiguiente();
-			delete primer;
-			primer = segundo;
-			primer->crearAnterior(NULL);
-		}
-	}*/
+
 }
 
 template<class T>
@@ -242,29 +224,6 @@ void intercambiar(Tripla<T>* a, Tripla<T>* b)
 	b->setDato(aux);
 }
 
-template <class T>
-void Lista8<T>::invertirSobreSiMisma()
-{
-	Tripla<T>* i = primer;
-	Tripla<T>* j = ultimo;
-
-	int tam = 0;
-	Tripla<T>* aux = primer;
-	while (aux != NULL)
-	{
-		aux = aux->getSiguiente();
-		tam += 1;
-	}
-
-	int cont = 0;
-	while (i != j)
-	{
-		intercambiar((i), (j));
-		i = i->getSiguiente();
-		j = j->getAnterior();
-		cont += 1;
-	}
-}
 
 template<class T>
 Tripla<T>* Lista8<T>::getPrimer()
