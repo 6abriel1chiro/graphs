@@ -14,17 +14,19 @@ void testMenu()
 		cout << "4--Mostrar Grafo--" << endl;
         cout << "5--BFS--" << endl;
         cout << "6--DFS--" << endl;
-        cout << "7-Salir--" << endl;
+		 cout << "7--mostrart camino--" << endl;
+        cout << "8-Salir--" << endl;
         cin >> opcion;
         system("cls");
         if (opcion == 1)
         {
-        myGraph.cargarArchivo("filename.txt");
+        myGraph.cargarArchivo("testDefensa.txt");
 
      
         } 
         if (opcion == 2)
         {
+
             myGraph.insArista(2, 3);
         }
         if (opcion == 3)
@@ -33,20 +35,50 @@ void testMenu()
         }
 		if (opcion == 4)
         {
-            myGraph.mostrargraph();
+            myGraph.mostrar();
         }
         if (opcion == 5)
         {
-         myGraph.BFS(1,2);
+			int ori, dest;
+			cout<<"ingrese origen "; cin>>ori;
+			cout<<"ingrese origen "; cin>>dest;
+
+			if (myGraph.BFS(ori,dest))
+			{
+				cout<<" camino encontrado "<<endl;
+			} 
+			else
+			{
+				cout<<" camino no encontrado "<<endl;
+
+			}
     
         }
         if (opcion == 6)
         {
-            myGraph.DFS(1,2);
+			int ori, dest;
+			cout<<"ingrese origen "; cin>>ori;
+			cout<<"ingrese origen "; cin>>dest;
+			if (myGraph.DFS(ori,dest))
+			{
+				cout<<" camino encontrado "<<endl;
+			}   
+			else
+			{
+				cout<<" camino no encontrado "<<endl;
 
-        }
+			}
+		
+		}
 
-    } while (opcion != 7);
+		 if (opcion == 7)
+        {
+			int  dest;
+			cout<<"ingrese dest "; cin>>dest;
+			myGraph.mostrarCamino(dest);
+		}
+
+    } while (opcion != 8);
     
 }
 

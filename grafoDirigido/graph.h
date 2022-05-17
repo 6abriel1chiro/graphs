@@ -1,22 +1,24 @@
 #pragma once
 #include "Node.h"
 #include <fstream>
-#define TAM 1000
+#define TAM 100
 template <class T>
 class graph
 {
 private:
-	Node<T> array[TAM];
+	Node<T> arr[TAM];
 	Lista8<T>* cola;
 public:
 	graph();
 	~graph();
 	void insArista(T dato1, T dato2);
 	void mostrarPadres();
-	void mostrargraph();
+	void mostrar();
 	bool DFS(T ori, T dest);
 	bool BFS(T ori, T dest);
 	void cargarArchivo(string nom);
+
+	void mostrarCamino(int dest);
 };
 template <class T>
 graph<T>::graph()
@@ -31,82 +33,86 @@ graph<T>::~graph()
 template <class T>
 void graph<T>::insArista(T dato1, T dato2)
 {
-	array[dato1].getLista()->addFront(dato2);
-	array[dato1].setPadre(dato1);
+	arr[dato1].getLista()->addFront(dato2);
+		
 }
 template <class T>
 void graph<T>::mostrarPadres()
 {
 	for (int i = 0; i < TAM; i ++)
 	{
-		if (array[i].getLista()->buscarIesimaPosicion(0) != NULL)
-			cout << array[i].getPadre() << " ";
+		if (arr[i].getLista()->findInPos(0) != NULL)
+			cout << arr[i].getPadre() << " ";
 	}
 }
 template <class T>
-void graph<T>::mostrargraph()
+void graph<T>::mostrar()
 {
-	for (int i = 0; i < TAM; i++)
+	for (int i = 0; i < TAM; i ++)
 	{
-		array[i].getLista()->mostrar();
-		cout << array[i].getPadre() << " ";
+		if (arr[i].getLista()->findInPos(0) != NULL)
+			cout << i << "->";
+			arr[i].getLista()->mostrar();
 	}
 }
 template <class T>
 bool graph<T>::DFS(T ori, T dest)
 {
-	bool encontre = false;
-	array[ori].setMarca(true);
-	int i = 1;
-	T adya = array[ori].getLista()->buscarIesimaPosicion(i);
+		bool found = false;
+	arr[ori].setMarca(true);
+	int i = 0;
+	T adya = arr[ori].getLista()->findInPos(i);
 	while (adya != NULL)
 	{
-		if (encontre == false && array[ori].getMarca() == false)
+		if (found == false && arr[adya].getMarca() == false)
 		{
-			array[adya].setPadre(ori);
+			arr[adya].setPadre(ori);
 			if (adya == dest)
 			{
-				encontre = true;
+				found = true;
 			}
 			else
 			{
-				encontre = DFS(adya, dest);
+				found = DFS(adya, dest);
 			}
 		}
 		i += 1;
-		adya = array[ori].getLista()->buscarIesimaPosicion(i);
+		adya = arr[ori].getLista()->findInPos(i);
 	}
-	return encontre;
+	return found;
 }
 template <class T>
 bool graph<T>::BFS(T ori, T dest)
 {
 	int i;
-	bool encontre = false;
-	array[ori].setMarca(true);
+	bool found = false;
+	arr[ori].setMarca(true);
 	cola->addBack(ori);
-	while (cola != NULL && encontre == false)
+	while (cola != NULL && found == false)
 	{
-		i = 1;
-		T vert = cola->buscarIesimaPosicion(0);
-		T adya = array[vert].getLista()->buscarIesimaPosicion(i);
-		while (adya != NULL && encontre == false)
+		i = 0;
+		T vert = cola->findInPos(0);
+		T adya = arr[vert].getLista()->findInPos(i);
+		while (adya != NULL && found == false)
 		{
-			if (array[adya].getMarca() == false)
+			if (arr[adya].getMarca() == false)
 			{
-				array[adya].setPadre(vert);
-				if (adya == dest) encontre = true;
+				//cout<<adya<<" ";
+				arr[adya].setPadre(vert);
+				if (adya == dest)
+				{found = true;}
 				else
 				{
-					array[adya].setMarca(true);
+					arr[adya].setMarca(true);
 					cola->addBack(adya);
 				}
 			}
 			i += 1;
-			adya = array[vert].getLista()->buscarIesimaPosicion(i);
+			adya = arr[vert].getLista()->findInPos(i);
+
 		}
 	}
-	return encontre;
+	return found;
 }
 template <class T>
 void graph<T>::cargarArchivo(string nom)
@@ -115,23 +121,38 @@ void graph<T>::cargarArchivo(string nom)
 	ifstream arch;
 	arch.open(nom);
 	T vec[100];
-	while (!arch.eof())
-	{
-		T dato = 0;
-		while (dato != -1)
+
+		while (!arch.eof())
 		{
-			arch >> dato;
-			vec[i] = dato;
-			i += 1;
-		}
-		for (int pos = 1; pos < i; pos += 1)
-		{
-			insArista(vec[0], vec[pos]);
-		}
-		for (int pos = 0; pos < i; pos += 1)
-		{
-			vec[i] = NULL;
-		}
-		i = 0;
+			T dato = 0;
+			while (dato != -1)
+			{
+				arch >> dato;
+				vec[i] = dato;
+				if (dato != -1)
+				i += 1;
+			}
+			for (int pos = 1; pos < i; pos += 1)
+			{
+				insArista(vec[0], vec[pos]);
+			}
+			for (int pos = 0; pos < i; pos += 1)
+			{
+				vec[i] = NULL;
+			}
+			i = 0;
 	}
+
+  
+
 }
+
+template <class T>
+	void graph<T>::mostrarCamino(int dest)
+	{
+		if (dest != -1)
+		{
+			mostrarCamino(arr[dest].getPadre());
+			cout<<dest<<" - ";
+		}
+	}
